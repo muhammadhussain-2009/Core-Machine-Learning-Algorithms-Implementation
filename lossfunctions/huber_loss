@@ -1,0 +1,20 @@
+# Implement Huber Loss, a robust regression loss that is less sensitive to outliers than Mean Squared Error. It behaves like L2 loss near zero and L1 loss when the error is large.
+
+import numpy as np
+
+def huber_loss(y_true, y_pred, delta=1.0):
+    """
+    Compute Huber Loss for regression.
+    """
+    # Write code here
+    y_true= np.asarray(y_true)
+    y_pred = np.asarray(y_pred)
+    if delta <= 0.0:
+        raise ValueError("Delta must be more than 0.0")
+    error= y_true - y_pred 
+    error = np.abs(error)
+    quadratic = np.minimum(error, delta)
+    linear = error - quadratic
+    loss = 0.5 * quadratic**2 + delta * linear
+    return np.mean(loss)
+    pass
